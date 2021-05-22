@@ -1,18 +1,22 @@
 import {NavBar} from "./components/Header";
 import {GlobalStyle} from "./theme";
 import "./App.css";
-import {GlobalProvider} from "./context/GlobalState";
 import Website from "./components/Website";
 import WebsiteList from "./components/WebsiteList";
+import {AddWebsite} from "./components/AddWebsite";
+import SubmitButton from "./components/SubmitButton";
 
 const App = () => {
     return (
-        <GlobalProvider>
-                <GlobalStyle/>
-                <NavBar/>
-                <Website/>
-                <WebsiteList/>
-        </GlobalProvider>
+        <div>
+            <GlobalStyle/>
+            <NavBar/>
+            <SubmitButton/>
+            <AddWebsite/>
+
+            <Website/>
+            <WebsiteList/>
+        </div>
 
     );
 }

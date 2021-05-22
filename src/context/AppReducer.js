@@ -12,6 +12,16 @@ const AppReducer = (state, action) => {
                 ...state,
                 websites: [action.payload, ...state.websites],
             };
+        // case "INCREASE_VOTE":
+        //     return {
+        //         ...state,
+        //         websites: [action.payload, ...state.websites],
+        //     };
+        // case "DECREASE_VOTE":
+        //     return {
+        //         ...state,
+        //         websites: [action.payload, ...state.websites],
+        //     };
         default:
             return state;
     }
