@@ -1,30 +1,51 @@
+// immutablejs immtuablity
+// redux, mobx
 const AppReducer = (state, action) => {
-    switch (action.type) {
-        case "DELETE_WEBSITE":
+  console.log(state);
+  console.log(action);
+  switch (action.type) {
+    case "DELETE_WEBSITE":
+      return {
+        ...state,
+        websites: state.websites.filter(
+          (website) => website.id !== action.payload
+        ),
+      };
+    case "ADD_WEBSITE":
+      return {
+        ...state,
+        websites: [action.payload, ...state.websites],
+      };
+    case "INCREASE_VOTE":
+      return {
+        ...state,
+        websites: state.websites.map((website) => {
+          if (website.id === action.payload) {
             return {
-                ...state,
-                websites: state.websites.filter(
-                    (website) => website.id !== action.payload
-                ),
+              ...website,
+              vote: website.vote + 1,
             };
-        case "ADD_WEBSITE":
+          }
+          return website;
+        }),
+      };
+    //sreturn { vote:state.websites.vote + 1};
+    case "DECREASE_VOTE":
+      return {
+        ...state,
+        websites: state.websites.map((website) => {
+          if (website.id === action.payload) {
             return {
-                ...state,
-                websites: [action.payload, ...state.websites],
+              ...website,
+              vote: website.vote - 1,
             };
-        // case "INCREASE_VOTE":
-        //     return {
-        //         ...state,
-        //         websites: [action.payload, ...state.websites],
-        //     };
-        // case "DECREASE_VOTE":
-        //     return {
-        //         ...state,
-        //         websites: [action.payload, ...state.websites],
-        //     };
-        default:
-            return state;
-    }
+          }
+          return website;
+        }),
+      };
+    default:
+      return state;
+  }
 };
 
-export default AppReducer
+export default AppReducer;
