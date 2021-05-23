@@ -1,6 +1,11 @@
 import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message, Typography, Card, Row, Col } from "antd";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
+const { Text } = Typography;
+
 const layout = {
   labelCol: {
     span: 8,
@@ -16,10 +21,15 @@ const tailLayout = {
   },
 };
 export const AddWebsite = () => {
+  const [form] = Form.useForm();
+
   const [text, setText] = useState("");
   const [name, setName] = useState("");
-
   const { addWebsite } = useContext(GlobalContext);
+  const history = useHistory();
+  const handleClick = () => {
+    history.push("/");
+  };
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -29,62 +39,95 @@ export const AddWebsite = () => {
   };
   const onSubmit = (e) => {
     e.preventDefault();
-
     const newWebsite = {
       id: Math.floor(Math.random() * 100000000),
       linkUrl: text,
       linkName: name,
       vote: 0,
     };
-    addWebsite(newWebsite);
+    if (text && name) {
+      addWebsite(newWebsite);
+      message.success(
+        <div>
+          <b>{newWebsite.linkName}</b> Added.
+        </div>
+      );
+    }
+    form.resetFields();
     setText("");
     setName("");
   };
-
   return (
     <>
-      <h3>Add new website</h3>
-      <Form
-        {...layout}
-        name="basic"
-        initialValues={{
-          remember: true,
-        }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-      >
-        <Form.Item
-          label="website name"
-          name="website"
-          rules={[
-            {
-              required: true,
-              message: "Please input your website!",
-            },
-          ]}
-        >
-          <Input onChange={(e) => setText(e.target.value)} />
-        </Form.Item>
-
-        <Form.Item
-          label="url"
-          name="url"
-          rules={[
-            {
-              required: true,
-              message: "Please input your url!",
-            },
-          ]}
-        >
-          <Input onChange={(e) => setName(e.target.value)} />
-        </Form.Item>
-
-        <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit" onClick={onSubmit}>
-            Submit
+      <Row>
+        <Col span={8} offset={8}>
+          <Button
+            icon={<ArrowLeftOutlined />}
+            onClick={handleClick}
+            type={"text"}
+          >
+            Return to list
           </Button>
-        </Form.Item>
-      </Form>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={8} offset={8}>
+          <Card>
+            <h2>
+              <b>Add new website</b>
+            </h2>
+            <Form
+              {...layout}
+              form={form}
+              name="basic"
+              initialValues={{
+                remember: false,
+              }}
+              onFinish={onFinish}
+              onFinishFailed={onFinishFailed}
+            >
+              <span>Link Name:</span>
+
+              <Form.Item
+                // label="Link Name:"
+                // name="linkName"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your website!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder={"e.g Alphabet"}
+                  onChange={(e) => setText(e.target.value)}
+                />
+              </Form.Item>
+              <span>Link URL:</span>
+              <Form.Item
+                // label="Link URL:"
+                // name="linkUrl"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your url!",
+                  },
+                ]}
+              >
+                <Input
+                  placeholder={"e.g http://abc.xyz"}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item {...tailLayout}>
+                <Button type="primary" htmlType="submit" onClick={onSubmit}>
+                  ADD
+                </Button>
+              </Form.Item>
+            </Form>
+          </Card>
+        </Col>
+      </Row>
     </>
   );
 };

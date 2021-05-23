@@ -9,7 +9,7 @@ export const NavBar = () => {
     <Layout className="layout">
       <Header>
         <Row>
-          <Col span={8}>
+          <Col span={8} offset={4}>
             {" "}
             <img src={logo} alt={""} width={200} height={100} />
           </Col>
@@ -17,7 +17,6 @@ export const NavBar = () => {
           {/*<Col span={8}>col-8</Col>*/}
         </Row>
       </Header>
-      <Divider />
       <Content style={{ padding: "0 10px" }}>
         {/*<Breadcrumb style={{ margin: '16px 0' }}>*/}
         {/*    <Breadcrumb.Item>Home</Breadcrumb.Item>*/}

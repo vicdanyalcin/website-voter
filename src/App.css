@@ -27,20 +27,34 @@
   color: white;
 }
 .btn {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
+  background-color: #ECECEC; /* Green */
+  border-style: solid;
+  border-color: gray;
+  color: black;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 4px;
+  margin: 0 4px;
   cursor: pointer;
-  padding: 32px 36px;
+  /*padding: 32px 36px;*/
   border-radius: 10px;
-  /*width: 200px;*/
-  /*height: 150px;*/
+  width: 100px;
+  height: 100px;
 }
+.btn b {
+  font-size:30px;
+}
+.btn-span {
+  font-size: 24px;
+  margin-left: 20px;
+  font-weight: 800;
+}
+h3 {
+  margin-top: 5px;
+
+}
+
 
 .App-link {
   color: #61dafb;
