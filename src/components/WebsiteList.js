@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
-import { Button, Card, List, Row, Select, Alert, Col } from "antd";
+import {Button, Card, List, Row, Select, Alert, Col, message} from "antd";
 import {
   CloseSquareOutlined,
   ArrowUpOutlined,
@@ -8,12 +8,38 @@ import {
 } from "@ant-design/icons";
 import Avatar from "antd/lib/avatar/avatar";
 import Confirm from "./Confirm";
+import {useLocalStorage} from "../util";
 
 const { Option } = Select;
 const WebsiteList = () => {
-  const { websites, deleteWebsite, increaseVote, decreaseVote } =
+  const { websites, deleteWebsite, increaseVote, decreaseVote,sortToHighest,sortToLowest } =
     useContext(GlobalContext);
-  console.log(websites);
+    const [websitesL, setWebsites] = useLocalStorage(
+        "SAVED_WEBSITES",
+            websites
+    );  console.log(websites);
+    const nodeRef = React.useRef(null);
+   const handleOnChange = (value) => {
+if(value === "1") {
+    console.log(value)
+    sortToHighest(websites)
+
+}if(value==="2") {
+           console.log(value)
+
+           sortToLowest(websites)
+       }
+       console.log(value)
+    }
+  const handleDelete = (item) => {
+      deleteWebsite(item.id);
+     const newWebsites= websitesL.filter((r) => r.id !== item.id)
+         setWebsites(newWebsites)
+      message.success(
+          <div>
+              <b>{item.linkName}</b> Removed.
+          </div>
+      )  }
   return (
     <>
       <Row>
@@ -32,9 +58,11 @@ const WebsiteList = () => {
                   .toLowerCase()
                   .localeCompare(optionB.children.toLowerCase())
               }
+              onSelect={ handleOnChange}
             >
-              <Option value="1">Most Voted(Z-A)</Option>
-              <Option value="2">Less Voted(A-Z)</Option>
+              <Option
+                                    value="1">Most Voted(Z-A)</Option>
+              <Option  value="2">Less Voted(A-Z)</Option>
             </Select>
             <List
               itemLayout="vertical"
@@ -46,11 +74,7 @@ const WebsiteList = () => {
                 pageSize: 5,
               }}
               dataSource={websites}
-              // footer={
-              //   <div>
-              //     <b>ant design</b> footer part
-              //   </div>
-              // }
+
               renderItem={(item) => (
                 <List.Item
                   key={item.id}
@@ -103,12 +127,13 @@ const WebsiteList = () => {
                     }
                     description={`(${item.linkUrl})`}
                   />
-                  <button
-                    onClick={() => deleteWebsite(item.id)}
-                    className="delete-btn"
-                  >
-                    x
-                  </button>
+                  {/*<button*/}
+                  {/*  onClick={() => deleteWebsite(item.id)}*/}
+                  {/*  className="delete-btn"*/}
+                  {/*>*/}
+                  {/*  x*/}
+                  {/*</button>*/}
+                    <Confirm linkName={item.linkName} onOk={()=>handleDelete(item)} nodeRef={nodeRef}/>
                 </List.Item>
               )}
             />

@@ -3,9 +3,8 @@ import { Popconfirm, Button, Alert, message, Modal, Typography } from "antd";
 import { CloseSquareOutlined } from "@ant-design/icons";
 const { Title } = Typography;
 
-const Confirm = ({ onConfirm, website, title, handleOkay, linkName }) => {
+const Confirm = ({ onConfirm, website, title, handleOkay, linkName,onOk,nodeRef }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -53,17 +52,21 @@ const Confirm = ({ onConfirm, website, title, handleOkay, linkName }) => {
   // };
 
   return (
-    <>
-      <>
-        <Button type="primary" onClick={showModal}>
-          Open Modal
-        </Button>
-        <Button icon={<CloseSquareOutlined />} onClick={showModal} />
+    <div
+    >
+
+        <button
+            onClick={showModal}
+            className="delete-btn"
+        >
+          x
+        </button>
         <Modal
+            nodeRef={nodeRef}
           title={"Remove Link"}
           visible={isModalVisible}
           centered
-          onOk={handleOk}
+          onOk={onOk}
           onCancel={handleCancel}
         >
           <Title level={5} type="secondary" style={{ textAlign: "center" }}>
@@ -73,8 +76,8 @@ const Confirm = ({ onConfirm, website, title, handleOkay, linkName }) => {
             <b>{linkName}</b>
           </h2>
         </Modal>
-      </>
-    </>
+
+    </div>
   );
 };
 export default Confirm;

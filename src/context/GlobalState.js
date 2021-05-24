@@ -1,5 +1,6 @@
-import React, { createContext, useReducer } from "react";
-import AppReducer from "./AppReducer";
+import React, { createContext, useReducer,useEffect } from "react";
+import {AppReducer,initializer} from "./AppReducer";
+import {useLocalStorage} from "../util";
 
 const initialState = {
   websites: [
@@ -17,10 +18,14 @@ const initialState = {
     // { id: 12, linkName: "twitter", linkUrl: "www.twitter.com", vote: 150 },
   ],
 };
-export const GlobalContext = createContext(initialState);
+export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
-  console.log(children);
+  const [state, dispatch] = useReducer(AppReducer,initialState, initializer);
+  useEffect(() => {
+    localStorage.setItem("MY_WEBSITES", JSON.stringify(state));
+  }, [state]);
+
+  console.log(state)
   function deleteWebsite(id) {
     dispatch({
       type: "DELETE_WEBSITE",
@@ -45,6 +50,18 @@ export const GlobalProvider = ({ children }) => {
       payload: id,
     });
   }
+  function sortToHighest(id) {
+    dispatch({
+      type: "SORT_TO_HIGHEST",
+      payload: id,
+    });
+  }
+  function sortToLowest(id) {
+    dispatch({
+      type: "SORT_TO_LOWEST",
+      payload: id,
+    });
+  }
   return (
     <GlobalContext.Provider
       value={{
@@ -53,6 +70,8 @@ export const GlobalProvider = ({ children }) => {
         addWebsite,
         increaseVote,
         decreaseVote,
+        sortToHighest,
+        sortToLowest
       }}
     >
       {children}

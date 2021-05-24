@@ -3,6 +3,7 @@ import { GlobalContext } from "../context/GlobalState";
 import { Form, Input, Button, message, Typography, Card, Row, Col } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import {useLocalStorage} from "../util";
 
 const { Text } = Typography;
 
@@ -25,7 +26,11 @@ export const AddWebsite = () => {
 
   const [text, setText] = useState("");
   const [name, setName] = useState("");
-  const { addWebsite } = useContext(GlobalContext);
+  const { addWebsite,websites } = useContext(GlobalContext);
+  // const [websitesL, setWebsites] = useLocalStorage(
+  //     "SAVED_WEBSITES",
+  //     websites
+  // );  console.log(websites);
   const history = useHistory();
   const handleClick = () => {
     history.push("/");
@@ -47,6 +52,9 @@ export const AddWebsite = () => {
     };
     if (text && name) {
       addWebsite(newWebsite);
+      // const newWebsites = [...websitesL, newWebsite];
+      //
+      // setWebsites(newWebsites)
       message.success(
         <div>
           <b>{newWebsite.linkName}</b> Added.

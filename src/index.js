@@ -5,13 +5,13 @@ import {GlobalProvider} from "./context/GlobalState";
 import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-      <GlobalProvider>
-          <BrowserRouter>          <App />
+    <GlobalProvider>
+        <BrowserRouter>          <App />
           </BrowserRouter>
-      </GlobalProvider>
 
-  </React.StrictMode>,
+
+    </GlobalProvider>
+    ,
   document.getElementById('root')
 );
 
