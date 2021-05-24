@@ -3,13 +3,13 @@ import { GlobalStyle } from "./theme";
 import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
-import { AddWebsite } from "./components/AddWebsite";
+import AddWebsite from "./components/AddWebsite";
 import Home from "./components/Home";
 import { Divider } from "antd";
 
 const App = () => {
   return (
-    <div>
+    <div className="App">
       <GlobalStyle />
       <NavBar />
       <Divider />

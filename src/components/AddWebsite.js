@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { GlobalContext } from "../context/GlobalState";
 import { Form, Input, Button, message, Card, Row, Col } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory,withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
 const layout = {
   labelCol: {
@@ -18,7 +18,7 @@ const tailLayout = {
     span: 16,
   },
 };
-export const AddWebsite = () => {
+ const AddWebsite = () => {
   const [form] = Form.useForm();
 
   const [text, setText] = useState("");
@@ -126,3 +126,4 @@ export const AddWebsite = () => {
     </>
   );
 };
+export default withRouter(AddWebsite)
