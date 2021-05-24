@@ -1,31 +1,21 @@
-import React, { createContext, useReducer,useEffect } from "react";
-import {AppReducer,initializer} from "./AppReducer";
-import {useLocalStorage} from "../util";
-
+import React, { createContext, useReducer, useEffect } from "react";
+import { AppReducer, initializer } from "./AppReducer";
 const initialState = {
   websites: [
     { id: 1, linkName: "quora", linkUrl: "www.quora.com", vote: -2 },
     { id: 2, linkName: "sds", linkUrl: "www.sds.com", vote: -3 },
     { id: 3, linkName: "youtube", linkUrl: "www.youtube.com", vote: 10 },
     { id: 4, linkName: "twitter", linkUrl: "www.twitter.com", vote: 150 },
-    // { id: 5, linkName: "quora", linkUrl: "www.quora.com", vote: -2 },
-    // { id: 6, linkName: "sds", linkUrl: "www.sds.com", vote: -3 },
-    // { id: 7, linkName: "youtube", linkUrl: "www.youtube.com", vote: 10 },
-    // { id: 8, linkName: "twitter", linkUrl: "www.twitter.com", vote: 150 },
-    // { id: 9, linkName: "quora", linkUrl: "www.quora.com", vote: -2 },
-    // { id: 10, linkName: "sds", linkUrl: "www.sds.com", vote: -3 },
-    // { id: 11, linkName: "youtube", linkUrl: "www.youtube.com", vote: 10 },
-    // { id: 12, linkName: "twitter", linkUrl: "www.twitter.com", vote: 150 },
   ],
 };
 export const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer,initialState, initializer);
+  const [state, dispatch] = useReducer(AppReducer, initialState, initializer);
   useEffect(() => {
     localStorage.setItem("MY_WEBSITES", JSON.stringify(state));
   }, [state]);
 
-  console.log(state)
+  console.log(state);
   function deleteWebsite(id) {
     dispatch({
       type: "DELETE_WEBSITE",
@@ -71,7 +61,7 @@ export const GlobalProvider = ({ children }) => {
         increaseVote,
         decreaseVote,
         sortToHighest,
-        sortToLowest
+        sortToLowest,
       }}
     >
       {children}
