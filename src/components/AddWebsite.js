@@ -27,7 +27,7 @@ const tailLayout = {
 
   const history = useHistory();
   const handleClick = () => {
-    history.push("/home");
+    history.push("/website-voter");
   };
   const onFinish = (values) => {
     console.log("Success:", values);

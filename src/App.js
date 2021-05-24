@@ -11,7 +11,7 @@ import { Divider } from "antd";
 const App = () => {
     const history = useHistory();
     useEffect(() => {
-        history.push("/home");
+        history.push("/website-voter");
     }, [ history]);
   return (
     <div>
@@ -19,7 +19,7 @@ const App = () => {
       <NavBar />
       <Divider />
       <Switch>
-        <Route path="/home" component={Home} exact />
+        <Route path="/website-voter" component={Home} exact />
         <Route path="/add" component={AddWebsite} exact />
       </Switch>
     </div>
