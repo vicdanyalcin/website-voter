@@ -14,7 +14,7 @@ const App = () => {
         history.push("/home");
     }, [ history]);
   return (
-    <div className="App">
+    <div>
       <GlobalStyle />
       <NavBar />
       <Divider />
